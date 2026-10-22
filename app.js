@@ -1,7 +1,14 @@
 // importando o express (instalado via terminal)
 import express from 'express';
+import { ler, inserir, lerUm } from './src/aluno.js';
 const app = express();
 const porta = 3000;
+
+// Habilitando o express para trabalhar com o formato json
+app.use(express.json());
+
+// Habilitando o express para trabalhar com o formato URL encoded (formulario)
+app.use(express.urlencoded({extended: true}));
 
 /* ROTAS */
 // Configurando rota para o início da aplicação
@@ -11,17 +18,24 @@ app.get('/', function(req, res) {
 
 // ROTA para visualizar TODOS os alunos
 app.get('/alunos', (req, res) => {
-    res.send('Dados de todos os alunos');
+    // res.send('Dados de todos os alunos');
+    ler(res);
 });
 
 // ROTA/Endpoint para visualizar UM aluno
 app.get('/alunos/:id', (req, res) => {
-    res.send('Dados de um aluno qualquer');
+    // res.send('Dados de um aluno qualquer');
+    const id = parseInt(req.params.id);
+    lerUm(id, res);
 });
 
 // Endpoint para INSERIR UM aluno no banco de dados
 app.post('/alunos', (req, res) => {
-    res.send('Cadastrando um aluno.');
+    // res.send('Cadastrando um aluno.');
+
+    // Requisição do parametro ID
+    const novoAluno = req.body;
+    inserir(novoAluno, res)
 })
 
 // PUT: Endpoint para atualiza TODOS os dados de UM aluno
@@ -40,7 +54,6 @@ app.patch('/alunos/:id', (req, res) => {
 app.delete('/alunos/:id', (req, res) => {
     res.send(`Aluno excluído com sucesso!`);
 });
-
 
 
 /* SERVIDOR */
