@@ -55,5 +55,31 @@ function lerUm(id, res){
     })
 }
 
-export { ler, inserir, lerUm };
+function atualizar(id, aluno, res) {
+    const sql = "UPDATE alunos SET ? WHERE id = ?";
+
+    // Como estamos passando dois parametros pela primeira vez precisa ser entro de um array. A ordem importa, precisamos respeitar a ordem da linha sql acima.
+    conexao.query(sql, [aluno, id], (erro, resultados) => {
+        if(erro){
+            res.status(400).json(erro.code);
+        }else{
+            res.status(200).json({"status" : "aluno atualizado com sucesso"})
+        }
+    })
+}
+
+// deletando um aluno
+function excluir(id, res){
+    const sql = "DELETE FROM alunos WHERE id = ?";
+
+    conexao.query(sql, id, (erro, resultados) => {
+        if(erro){
+            res.status(400).json(erro.code);
+        }else{
+            res.status(200).json({"status" : "aluno excluído com sucesso", id})
+        }
+    })
+}
+
+export { ler, inserir, lerUm, atualizar, excluir };
 
