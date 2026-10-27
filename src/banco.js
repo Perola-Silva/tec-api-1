@@ -1,10 +1,10 @@
 import mysql2 from 'mysql2';
 
 const conexao = mysql2.createConnection({
-    host: 'localhost',
-    user: 'root',
+    host: '192.185.215.58',
+    user: 'kuart612_TodoMundoPEN',
     password: 'senacpenha',
-    database: 'tec-api'
+    database: 'kuart612_APINPenha'
 });
 
 // conexao.connect();
@@ -13,7 +13,7 @@ conexao.connect(erro => {
     if(erro){
         console.log(`Erro ao conectar: ${erro.message}`) // exibindo mensagem de erro amigavel
     }else{
-        console.log('Banco de dados conectado');
+        console.log(`Banco conecetado em ${conexao.config.host}`);
     }
 });
 
