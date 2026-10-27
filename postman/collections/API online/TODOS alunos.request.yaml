@@ -1,0 +1,4 @@
+$kind: http-request
+url: https://tec-api-c01aa.containers.snapdeploy.app/alunos
+method: GET
+order: 1000
